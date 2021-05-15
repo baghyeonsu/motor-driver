@@ -19,19 +19,22 @@ function setMotorASpeed(speed: number) {
 
 input.onButtonPressed(Button.A, function on_button_pressed_a() {
     
-    speed += -1
-})
-input.onButtonPressed(Button.B, function on_button_pressed_b() {
-    
-    speed += 1
+    Speed_Left = +1
 })
 input.onButtonPressed(Button.AB, function on_button_pressed_ab() {
     
-    speed = 0
+    let Speed_Right = +1
+    let Speed_Left = +1
     pins.digitalWritePin(DigitalPin.P0, 1)
     pins.digitalWritePin(DigitalPin.P1, 1)
 })
+input.onButtonPressed(Button.B, function on_button_pressed_b() {
+    
+    Speed_Right = +1
+})
 let speed = 0
+let Speed_Right = 0
+let Speed_Left = 0
 motorACoast()
 basic.forever(function on_forever() {
     basic.showNumber(speed)
