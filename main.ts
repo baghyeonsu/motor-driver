@@ -38,7 +38,9 @@ function setMotorBSpeed(speed: number) {
 
 input.onButtonPressed(Button.A, function on_button_pressed_a() {
     
-    Speed_Right = Speed_Right + 1
+    
+    Speed_Right = Speed_Right + 8
+    Speed_Left = Speed_Left + 10
 })
 input.onButtonPressed(Button.AB, function on_button_pressed_ab() {
     
@@ -50,7 +52,9 @@ input.onButtonPressed(Button.AB, function on_button_pressed_ab() {
 })
 input.onButtonPressed(Button.B, function on_button_pressed_b() {
     
-    Speed_Right = Speed_Right - 1
+    
+    Speed_Right = Speed_Right - 8
+    Speed_Left = Speed_Left - 10
 })
 let Speed_Left = 0
 let speed = 0
@@ -61,5 +65,6 @@ motorACoast()
 motorBCoast()
 basic.forever(function on_forever() {
     //  basic.show_number(Speed_Right)
+    setMotorASpeed(Speed_Left)
     setMotorBSpeed(Speed_Right)
 })

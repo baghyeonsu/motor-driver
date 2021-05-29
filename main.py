@@ -30,7 +30,9 @@ def setMotorBSpeed(speed: number):
 
 def on_button_pressed_a():
     global Speed_Right
-    Speed_Right = Speed_Right + 1
+    global Speed_Left
+    Speed_Right = Speed_Right + 8
+    Speed_Left  = Speed_Left  + 10
 input.on_button_pressed(Button.A, on_button_pressed_a)
 
 def on_button_pressed_ab():
@@ -44,7 +46,9 @@ input.on_button_pressed(Button.AB, on_button_pressed_ab)
 
 def on_button_pressed_b():
     global Speed_Right
-    Speed_Right = Speed_Right - 1
+    global Speed_Left
+    Speed_Right = Speed_Right - 8
+    Speed_Left  = Speed_Left  - 10
 input.on_button_pressed(Button.B, on_button_pressed_b)
 
 Speed_Left = 0
@@ -57,5 +61,6 @@ motorBCoast()
 
 def on_forever():
     # basic.show_number(Speed_Right)
+    setMotorASpeed(Speed_Left)
     setMotorBSpeed(Speed_Right)
 basic.forever(on_forever)
