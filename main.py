@@ -14,28 +14,6 @@ def setMotorASpeed(speed: number):
         # speed has to be positive to get here
         pins.digital_write_pin(DigitalPin.P0, 0)
         pins.analog_write_pin(AnalogPin.P1, speed * 10)
-
-def on_button_pressed_a():
-    global Speed_Right, Speed_Left
-    Speed_Right = Speed_Right + 8
-    Speed_Left = Speed_Left + 10
-input.on_button_pressed(Button.A, on_button_pressed_a)
-
-def on_button_pressed_ab():
-    global speed, Speed_Right, Speed_Left
-    speed = 0
-    Speed_Right = 0
-    Speed_Left = 0
-    motorACoast()
-    motorBCoast()
-input.on_button_pressed(Button.AB, on_button_pressed_ab)
-
-def on_button_pressed_b():
-    global Speed_Right, Speed_Left
-    Speed_Right = Speed_Right - 8
-    Speed_Left = Speed_Left - 10
-input.on_button_pressed(Button.B, on_button_pressed_b)
-
 def setMotorBSpeed(speed: number):
     if speed < 0:
         pins.analog_write_pin(AnalogPin.P2, -1 * speed * 10)
@@ -49,23 +27,26 @@ def setMotorBSpeed(speed: number):
 
 def on_received_value(name, value):
     global Speed_Left
-    if name == "speed_left":
+    if name == "left":
         Speed_Left = value * 1000
-    elif name == "speed_right":
-        Speed_Right=value *  1000
+    elif name == "right":
+        pass
 radio.on_received_value(on_received_value)
 
-speed = 0
+def dummy():
+    # basic.show_number(Speed_Right)
+    setMotorASpeed(Speed_Left)
+    setMotorBSpeed(Speed_Right)
+    motorACoast()
+    motorBCoast()
 Speed_Left = 0
 Speed_Right = 0
 radio.set_group(1)
 # disable led screen so that p3 is available for motor control
-led.enable(False)
-motorACoast()
-motorBCoast()
+led.enable(True)
+Speed_Right = 0
+Speed_Left = 0
 
 def on_forever():
-    # basic.show_number(Speed_Right)
-    setMotorASpeed(Speed_Left)
-    setMotorBSpeed(Speed_Right)
+    basic.show_number(Speed_Right)
 basic.forever(on_forever)
